@@ -1,0 +1,39 @@
+/* Colors
+
+/* General */
+
+body {
+    font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Landing */
+
+.navbar {
+    background-color: transparent;
+    margin-bottom: 0;
+}
+
+.navbar .navbar-brand, .nav-link {
+    color: #fff;
+    opacity: .7;
+    transition: .5s;
+}
+
+    .navbar .navbar-brand:hover, .nav-link:hover {
+        color: #fff;
+        opacity: 1;
+    }
+
+.header {
+    background-image: url("../images/pg.jpg");
+    background-position: center center;
+    background-size: cover;
+    filter: grayscale(.5);
+    margin-bottom: 10vh;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Trade Interface */
+
