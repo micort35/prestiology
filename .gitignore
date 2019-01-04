@@ -1,0 +1,5 @@
+/venv
+/.vscode
+/assets/py/auth.py
+/assets/py/test.py
+*\__pycache__
