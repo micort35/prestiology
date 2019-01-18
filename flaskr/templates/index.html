@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+
+{% block content %}    
+    <div class="header text-center text-white d-flex">
+        <div class="container my-auto">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <h1 class="text-uppercase">
+                        <strong>Lorem Ipsum</strong>
+                    </h1>
+                </div>
+                <div class="col-lg-8 mx-auto">
+                    <p class="mb-5">Lorem Ipsum</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <h1 class="lead-3 text-center">Trade Analysis</h1>
+        <form action="" method="POST" novalidate>
+            {{ form.hidden_tag() }}
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                {{ form.fg_wt.label }}
+                                {{ form.fg_wt(class="form-control form-control-sm", id="fg_wt") }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {{ form.ft_wt.label }}
+                                {{ form.ft_wt(class="form-control form-control-sm", id="ft_wt") }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {{ form.tpm_wt.label }}
+                                {{ form.tpm_wt(class="form-control form-control-sm", id="tpm_wt") }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {{ form.pts_wt.label }}
+                                {{ form.pts_wt(class="form-control form-control-sm", id="pts_wt") }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {{ form.reb_wt.label }}
+                                {{ form.reb_wt(class="form-control form-control-sm", id="reb_wt") }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {{ form.ast_wt.label }}
+                                {{ form.ast_wt(class="form-control form-control-sm", id="ast_wt") }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                {{ form.stl_wt.label }}
+                                {{ form.stl_wt(class="form-control form-control-sm", id="stl_wt") }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {{ form.blk_wt.label }}
+                                {{ form.blk_wt(class="form-control form-control-sm", id="blk_wt") }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {{ form.tov_wt.label }}
+                                {{ form.tov_wt(class="form-control form-control-sm", id="tov_wt") }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {{ form.cst_wt.label }}
+                                {{ form.cst_wt(class="form-control form-control-sm", id="cst_wt") }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {{ form.act_wt.label }}
+                                {{ form.act_wt(class="form-control form-control-sm", id="act_wt") }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {{ form.hea_wt.label }}
+                                {{ form.hea_wt(class="form-control form-control-sm", id="hea_wt") }}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table mx-auto w-50">
+                <thead>
+                    <tr>
+                        <th scope="col" class="w-50 text-center">To Team B:</th>
+                        <th scope="col" class="w-50 text-center">To Team A:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                {{ form.give(class="form-control form-control-sm") }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                {{ form.receive(class="form-control form-control-sm") }}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" colspan="6">
+                            <div class="form-group">
+                                {{ form.submit(class="btn btn-primary") }}
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            {% if give is not none %}
+            <table class="table small" id="results">
+                <thead>
+                    <tr scope="col">
+                        <th class="no-border">
+                            <span>Team A Receives:</span>
+                        </th>
+                    </tr>
+                    <tr scope="col" class="cats">
+                    {% for key in give.keys() %}
+                        <th>
+                            {{ key }}
+                        </th>
+                    {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    {% for key, value in give.items() %}
+                        {% if key[0] == 'v' %}
+                        <td class="valcolored">
+                            {{ value }}
+                        </td>
+                        {% else %}
+                        <td>
+                            {{ value }}
+                        </td>
+                        {% endif %}
+                    {% endfor %}   
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr scope="col">
+                        <th class="no-border">
+                            <span>Team B Receives:</span>
+                        </th>
+                    </tr>
+                    <tr scope="col" class="cats">
+                    {% for key in give.keys() %}
+                        <th>
+                            {{ key }}
+                        </th>
+                    {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    {% for key, value in receive.items() %}
+                        {% if key[0] == 'v' %}
+                        <td class="valcolored">
+                            {{ value }}
+                        </td>
+                        {% else %}
+                        <td>
+                            {{ value }}
+                        </td>
+                        {% endif %}
+                    {% endfor %}     
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                    {% for key, value in delta.items() %}
+                        {% if key[0] == 'v' %}
+                        <td class="valcolored">
+                            {{ value }}
+                        </td>
+                        {% else %}
+                        <td>
+                            {{ value }}
+                        </td>
+                        {% endif %}
+                    {% endfor %}   
+                    </tr>
+                </tfoot>
+            </table>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

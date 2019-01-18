@@ -1,5 +1,8 @@
 /venv
 /.vscode
-/assets/py/auth.py
-/assets/py/test.py
-*\__pycache__
+*.pyc
+__pycache__/
+
+/scraper/auth.py
+.env
+/migrations

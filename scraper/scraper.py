@@ -11,8 +11,6 @@ import auth
 import log
 import scraper_lib
 
-times = []
-
 def parse_and_input(score, connection, gameday):
     start = time.time()
     #create object and cursor for pSQL processing
@@ -26,8 +24,7 @@ def parse_and_input(score, connection, gameday):
         player_id = curr_player.get_pid(cur)
         curr_player.ins_log(player_id, cur)
     end = time.time()
-    times.append((end-start))
-    print(gameday, (end-start))
+    print(end-start)
 
 def update(connection, gameday=(date.today()-timedelta(1))):
     #convert to string and split to individual date elements
@@ -47,19 +44,16 @@ def pull(connection, start=None):
         sched = client.season_schedule(2019)
         start = sched[0].get('start_time').date()
     current = date.today()
-    global times
     #loop through start of season to current day, update
     for gameday in scraper_lib.daterange(start, current):
         update(connection, gameday)
-    avg = sum(times)/len(times)
-    print('AVG:', avg)
 
 def clear(connection):
     #double-check for table deletions
     check = input('Are you sure you want to clear the DB? Y/N\n')
-    if check is 'Y':
-        print('Dropping tables, clearing league_roster...')
-    elif check is 'N':
+    if check == 'Y':
+        print('Clearing league_roster, game_logs...')
+    elif check == 'N':
         print('Clear aborted.')
         return
     else:
@@ -67,12 +61,8 @@ def clear(connection):
 
     #drop all game log tables, delete entries in roster
     cur = connection.cursor()
-    query = 'SELECT name FROM league_roster'
-    cur.execute(query)
-    names = cur.fetchall()
-    drop = 'DROP TABLE {}'
-    for name in names:
-        cur.execute(sql.SQL(drop).format(sql.Identifier(name[0])))
+    delete = 'DELETE FROM game_logs'
+    cur.execute(delete)
     delete = 'DELETE FROM league_roster'
     cur.execute(delete)
 

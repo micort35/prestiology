@@ -1,5 +1,12 @@
 /* Colors
 
+Raisin Black: #242423
+Rusty Red: #D62246
+Mystic: #DB5375
+Kelly Green: #29BF12
+Green-Yellow: #ABFF4F
+White Smoke: #F5F5F5
+
 /* General */
 
 body {
@@ -37,3 +44,12 @@ body {
 
 /* Trade Interface */
 
+.cats {
+    background-color: #242423;
+    color: white;
+    text-transform: uppercase;
+}
+
+form .no-border {
+    border-top: 0px;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1" />
+        <meta name="description" content="Fantasy basketball analysis tools">
+        <meta name="author" content="Michael Ortiz">
+        <title>Prestiology</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../static/css/custom.css">
+        <link rel="stylesheet" href="../static/css/normalize.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script src="{{ url_for('static', filename='js/ValColor.js') }}"></script>
+    </head>
+    
+    <body>
+        <nav class="navbar navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Prestiology</a>
+                <a class="nav-link" href="./trade">Trade Analysis</a>
+                <a class="nav-link" href="./matchup">Matchup Analysis</a>
+                <a class="nav-link" href="./impact">Player Impact Analysis</a>
+                <a class="nav-link" href="./sentiment">Sentiment Analysis</a>
+                <a class="nav-link" href="./about">The Algorithm</a>
+            </div>
+        </nav>
+        {% block content %}{% endblock %}
+    </body>
+</html>
