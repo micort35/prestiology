@@ -43,7 +43,7 @@ def pull(connection, start=None):
     current = date.today()
 
     #add all game logs from given start to date
-    for gameday in scraper_lib.daterange(start, current):
+    for gameday in daterange(start, current):
         update(connection, gameday)
 
 def clear(connection):

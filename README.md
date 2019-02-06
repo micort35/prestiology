@@ -8,6 +8,7 @@ Prestiology, named after Oklahoma City Thunder General Manager Sam Presti, aims 
 The front-end uses minimal Javascript and relies on Bootstrap to style a large portion of the elements. The back-end is written in Python and uses Postgres for the database. Data is aggregated using a Basketball-Reference web scraper (see contributions). Psycopg2 is used for interfacing with Postgres through Python, and Flask gets the entirety of the project up and running.
 
 ## TODO:
+* Improve documentation
 * Expand trading tool to multiple players
 * Matchup Analysis
 * Player Impact Analysis

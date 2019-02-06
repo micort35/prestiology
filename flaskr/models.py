@@ -91,43 +91,27 @@ class LeagueRoster(db.Model):
     
     def evaluate(player, zscores, weights):
         player['value'] = 0
-        zscores.update(tov = - zscores.get('tov'))
+        zscores.update(tov = -zscores.get('tov'))
         for key, val in zscores.items():
             if key == 'fg':
-                player['vfg'] = round((val*player.get('fga')/5), 2)
+                player['vfg'] = (round((val*weights.get('fg_wt')*player.get('fga')/5), 2))
+                player.update(value = player.get('value') + round((val*weights.get('fg_wt')), 2))
             elif key == 'ft':
-                player['vft'] = round((val*player.get('fga')/5), 2)
+                player['vft'] = (round((val*weights.get('ft_wt')*player.get('fta')/2), 2))
+                player.update(value = player.get('value') + round((val*weights.get('ft_wt')), 2))
             else:
-                player['v'+key] = round(val, 2)
-                player.update(value = (player.get('value') + round((val*weights.get(key+'_wt')), 2)))
+                player['v'+key] = round(val*weights.get(key+'_wt'), 2)
+                player.update(value = player.get('value') + round((val*weights.get(key+'_wt')), 2))
 
     def delta(give, receive):
         delta = give.copy()
-        delta.update(name = u'Δ')
-        delta.update(team = "")
-        delta.update(gp = "")
-        delta.update(mins = (give.get('mins') - receive.get('mins')))
-        delta.update(fg = (give.get('fg') - receive.get('fg')))
-        delta.update(fga = (give.get('fga') - receive.get('fga')))
-        delta.update(ft = (give.get('ft') - receive.get('ft')))
-        delta.update(fta = (give.get('fta') - receive.get('fta')))
-        delta.update(tpm = (give.get('tpm') - receive.get('tpm')))
-        delta.update(pts = (give.get('pts') - receive.get('pts')))
-        delta.update(reb = (give.get('reb') - receive.get('reb')))
-        delta.update(ast = (give.get('ast') - receive.get('ast')))
-        delta.update(stl = (give.get('stl') - receive.get('stl')))
-        delta.update(blk = (give.get('blk') - receive.get('blk')))
-        delta.update(tov = (give.get('tov') - receive.get('tov')))
-        delta.update(value = (give.get('value') - receive.get('value')))
-        delta.update(vfg = (give.get('vfg') - receive.get('vfg')))
-        delta.update(vft = (give.get('vft') - receive.get('vft')))
-        delta.update(vtpm = (give.get('vtpm') - receive.get('vtpm')))
-        delta.update(vpts = (give.get('vpts') - receive.get('vpts')))
-        delta.update(vreb = (give.get('vreb') - receive.get('vreb')))
-        delta.update(vast = (give.get('vast') - receive.get('vast')))
-        delta.update(vstl = (give.get('vstl') - receive.get('vstl')))
-        delta.update(vblk = (give.get('vblk') - receive.get('vblk')))
-        delta.update(vtov = (give.get('vtov') - receive.get('vtov')))
+        for key in delta.keys():
+            if key == 'name':
+                delta[key] = u'Δ'
+            elif (key == 'team') or (key == 'gp'):
+                delta[key] = ""
+            else:
+                delta[key] = (give.get(key) - receive.get(key))
         return delta
 
 class GameLogs(db.Model):
