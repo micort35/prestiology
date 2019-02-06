@@ -1,30 +1,27 @@
 #!usr/bin/env/python
 import sys
-import time
 from enum import Enum
 from datetime import timedelta, date
 import psycopg2
-from psycopg2 import sql, pool
 from basketball_reference_web_scraper import client
 from basketball_reference_web_scraper.data import Team
 import auth
 import log
-import scraper_lib
+from scraper_lib import daterange, benchmark
 
+@benchmark
 def parse_and_input(score, connection, gameday):
-    start = time.time()
     #create object and cursor for pSQL processing
     cur = connection.cursor()
     curr_player = log.Log(score, gameday)
 
-    #if player doesn't exist, must create log table, else update tables
+    #if player doesn't exist, add to roster
     if not (curr_player.exists(cur)):
         curr_player.add_player(cur)
+    #else add log to game logs
     else:
         player_id = curr_player.get_pid(cur)
         curr_player.ins_log(player_id, cur)
-    end = time.time()
-    print(end-start)
 
 def update(connection, gameday=(date.today()-timedelta(1))):
     #convert to string and split to individual date elements
@@ -44,12 +41,13 @@ def pull(connection, start=None):
         sched = client.season_schedule(2019)
         start = sched[0].get('start_time').date()
     current = date.today()
-    #loop through start of season to current day, update
+
+    #add all game logs from given start to date
     for gameday in scraper_lib.daterange(start, current):
         update(connection, gameday)
 
 def clear(connection):
-    #double-check for table deletions
+    #ensure user means to delete
     check = input('Are you sure you want to clear the DB? Y/N\n')
     if check == 'Y':
         print('Clearing league_roster, game_logs...')

@@ -66,9 +66,7 @@ class LeagueRoster(db.Model):
         return means
 
     def get_zscores(player, stddevs, means):
-        scores = {}
-        for mean in means:
-            scores[mean] = ((player.get(mean) - means.get(mean))/stddevs.get(mean))
+        scores = {mean:((player.get(mean) - means.get(mean))/stddevs.get(mean)) for mean in means}
         return scores
 
     def wrap(row):
@@ -87,7 +85,7 @@ class LeagueRoster(db.Model):
           'ast': round(row.ast, 2),
           'stl': round(row.stl, 2),
           'blk': round(row.blk, 2),
-          'tov': round(row.tov, 2),
+          'tov': round(row.tov, 2)
         }
         return player
     

@@ -1,13 +1,13 @@
 $(document).ready(function() {
-    var tbl = document.getElementById("results");
+    const tbl = document.getElementById('results');
     const rows = tbl.rows;
     const rowCt = rows.length;
-    for(var i = 0; i < rowCt; i++){
+    for(let i = 0; i < rowCt; i++){
         const cells = rows[i].cells;
         const cellCt = cells.length;
-        for(var j = 0; j < cellCt; j++){
-            var val = cells[j].textContent;
-            var cName = cells[j].className;
+        for(let j = 0; j < cellCt; j++){
+            const val = cells[j].textContent;
+            const cName = cells[j].className;
             if(cName == "valcolored"){
                 if(val >= 2){
                     cells[j].style.backgroundColor = "#29BF12";
